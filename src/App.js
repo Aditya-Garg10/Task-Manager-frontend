@@ -70,22 +70,23 @@ function App() {
     getNote()
   };
   const deleteNote = async (id) => {
-    const response = await fetch(`${host}/notes/deletenote/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token":
-      localStorage.getItem('token')},
-    });
-    //eslint-disable-next-line
-    const json = await response.json();
-
-    const newNote = notes.filter((note) => {
-      return note._id !== id;
-    });
-    setNote(newNote);
+    if(window.confirm("Do you want to delete this Task?")){
+      const response = await fetch(`${host}/notes/deletenote/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token":
+        localStorage.getItem('token')},
+      });
+      //eslint-disable-next-line
+      const json = await response.json();
+  
+      const newNote = notes.filter((note) => {
+        return note._id !== id;
+      });
+      setNote(newNote);
+    }
   };
-  //const hi= "Aditya"
   const [alert,setAlert] = useState(null)
   const showAlert = (message, type)=>{
     setAlert({
